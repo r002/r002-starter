@@ -34,6 +34,11 @@ export class IssueCollection {
     this.arr.push(issue)
   }
 
+    /**
+   * Add an Issue to our collection
+   * @param  {void}
+   * @return {Array<Issue>}
+   */
   getAll () {
     return this.arr
   }

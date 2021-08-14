@@ -1,0 +1,25 @@
+{
+  "name": "r002-starter",
+  "version": "1.0.0",
+  "description": "Basic starter templates",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "isomorphic-fetch": "^3.0.0",
+    "jest": "^27.0.6"
+  },
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/r002/r002-starter.git"
+  },
+  "author": "Robert Lin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/r002/r002-starter/issues"
+  },
+  "homepage": "https://github.com/r002/r002-starter#readme"
+}

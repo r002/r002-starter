@@ -26,9 +26,25 @@
 <body>
   Hello from client!
   <script type="module">
-    import { runMain } from "./js/ghService.js" 
+    import { getIssues } from "./js/ghService.js" 
 
-    runMain()
+    runGuiLogic()
+
+    function runGuiLogic() {
+      runTest01().then(rs => {
+        console.log(">> runGuiLogic test01 passed:", rs)
+      })
+    }
+
+    async function runTest01 () {
+      const numberOfIssues = 5
+      const collection = await getIssues(numberOfIssues)
+      console.log('>> getIssues():', numberOfIssues, collection)
+      if (collection.getAll().length === 5) {
+        return true
+      }
+      return false
+    }
   </script>
 </body>
 </html>
