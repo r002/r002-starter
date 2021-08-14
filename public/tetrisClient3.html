@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Tetris Test Harness2 (CORS Proxy - Succeeds)</title>
+  <title>Tetris Test Harness3 (CORS Proxy - Succeeds)</title>
   <!-- <link rel="icon" href="/favicon.ico">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -14,14 +14,19 @@
 </head>
 
 <body>
-  <h1>Tetris Client Test Harness2 (CORS HardProxy - Succeeds)</h1>
+  <h1>Tetris Client Test Harness3 (CORS Generalized Proxy - Succeeds)</h1>
   This one works because <strong>'Access-Control-Allow-Origin: *'</strong> is set in the <strong>response header</strong>! 🎉🥳
   <br /><br />
 
   <script type="module">
     // const url = 'https://ctwc-cloud.appspot.com/v1/match/ctwc_2014_r5-01'
-    const url = 'https://us-central1-r002-starter.cloudfunctions.net/hardProxy'
+    // const url = 'https://us-central1-r002-starter.cloudfunctions.net/hardProxy'
 
+    // NOTE: For this generalized CORS proxy, mind the classes! Fetch only accepts a url
+    // with one protocol-- Ie. doing `.../corsProxy/https://ctwc-cloud...` doesn't work here!
+    // You need to only pass in `.../corsProxy/https:/ctwc-cloud...` to the proxy. Will fix later 8/14/21
+    const url = 'https://us-central1-r002-starter.cloudfunctions.net/corsProxy/https:/ctwc-cloud.appspot.com/v1/match/ctwc_2014_r5-01'
+    // const url = 'https://us-central1-r002-starter.cloudfunctions.net/corsProxy/https:/api.github.com/repos/studydash/cards/issues?milestone=1&sort=created&direction=desc&per_page=1'
     fetch(url).then((response) => {
       if (response.ok) {
         return response.json()

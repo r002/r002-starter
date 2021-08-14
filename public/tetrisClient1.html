@@ -22,7 +22,7 @@
 
   <script type="module">
     const url = 'https://ctwc-cloud.appspot.com/v1/match/ctwc_2014_r5-01'
-    // const url = 'https://us-central1-r002-starter.cloudfunctions.net/getCtwcMatch'
+    // const url = 'https://us-central1-r002-starter.cloudfunctions.net/bypassCORS/https://ctwc-cloud.appspot.com/v1/match/ctwc_2014_r5-01'
     fetch(url).then((response) => {
       if (response.ok) {
         return response.json()

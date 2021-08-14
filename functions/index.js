@@ -1,12 +1,13 @@
 const functions = require("firebase-functions")
-const cors = require('cors')({origin: true});
+// Firebase documentation suggests this but it doesn't work for me! 8/14/21
+// const cors = require('cors')({
+//   origin: '*', // true
+// })
 require('isomorphic-fetch')
 
 exports.helloWorld = functions.https.onRequest((request, response) => {
-  cors(request, response, () => {
-    functions.logger.info("Hello logs!", {structuredData: true})
-    response.send("Testing CORS... It's Saturday! 🎉🥳")
-  })
+  functions.logger.info("Hello logs!", {structuredData: true})
+  response.send("Testing CORS... It's Saturday! 🎉🥳")
 })
 
 exports.getDogs = functions.https.onRequest((request, response) => {
@@ -26,26 +27,79 @@ exports.getDogs = functions.https.onRequest((request, response) => {
   })
 })
 
-exports.getCtwcMatch = functions.https.onRequest((request, response) => {
-  cors(request, response, () => {
-    const url = 'https://ctwc-cloud.appspot.com/v1/match/ctwc_2014_r5-01'
-    fetch(url).then((rs) => {
-      if (rs.ok) {
-        return rs.json()
-      } else {
-        throw new Error('Something went wrong')
-      }
-    })
-    .then((responseJson) => {
-      // This also works but Google Firebase documentation suggests using the `cors` package
-      // https://stackoverflow.com/questions/42755131/enabling-cors-in-cloud-functions-for-firebase/42756623#42756623
-      // response.set("Access-Control-Allow-Origin", "*")
-      // response.set("Access-Control-Allow-Headers", "Content-Type")
-      response.send(responseJson)
-    })
-    .catch((error) => {
-      console.error(error)
-    })
+exports.hardProxy = functions.https.onRequest((request, response) => {
+  const url = 'https://ctwc-cloud.appspot.com/v1/match/ctwc_2014_r5-01'
+  fetch(url).then((rs) => {
+    if (rs.ok) {
+      return rs.json()
+    } else {
+      throw new Error('Something went wrong')
+    }
+  })
+  .then((responseJson) => {
+    console.log('>> hardProxy success!! Returning:', responseJson)
+    response.set("Access-Control-Allow-Origin", "*")
+    response.set("Access-Control-Allow-Headers", "Content-Type")
+    response.send(responseJson)
+    return
+  })
+  .catch((error) => {
+    const errMsg = `Sorry! Invalid url! Cannot proxy! Tried to proxy: "${url}"` 
+    console.error(errMsg, error)
+    response.send(errMsg)
+    return
+  })
+})
+
+exports.corsProxy = functions.https.onRequest((request, response) => {
+  // const url = 'https://ctwc-cloud.appspot.com/v1/match/ctwc_2014_r5-01'
+  let url = request.originalUrl.substr(1) // Eliminate the leading '/'
+  url = url.replace(/^https:\/(\w.*)/, 'https://$1') // Properly add the protocol if it's stripped. Only proxy ssl
+  console.log('>> Running corsProxy:', url)
+  fetch(url, { method: "get" }).then((rs) => {
+    if (rs.ok) {
+      return rs.json()
+    } else {
+      throw new Error('Something went wrong')
+    }
+  })
+  .then((responseJson) => {
+    console.log('>> Proxy success! Returning:', responseJson)
+    response.set("Access-Control-Allow-Origin", "*")
+    response.set("Access-Control-Allow-Headers", "Content-Type")
+    response.send(responseJson)
+    return
+  })
+  .catch((error) => {
+    const errMsg = `Sorry! Invalid url! Cannot proxy! Tried to proxy: "${url}"` 
+    console.error(errMsg, error)
+    response.send(errMsg)
+    return
+  })
+})
+
+// This fails to proxy because "Access-Control-Allow-Origin" isn't set
+exports.test = functions.https.onRequest((request, response) => {
+  let url = request.originalUrl.substr(1) // Eliminate the leading '/'
+  url = url.replace(/^https:\/(\w.*)/, 'https://$1') // Properly add the protocol if it's stripped. Only proxy ssl
+  fetch(url).then((rs) => {
+    if (rs.ok) {
+      return rs.json()
+    } else {
+      throw new Error('Something went wrong')
+    }
+  })
+  .then((responseJson) => {
+    // response.set("Access-Control-Allow-Origin", "*")
+    // response.set("Access-Control-Allow-Headers", "Content-Type")
+    response.send(responseJson)
+    return
+  })
+  .catch((error) => {
+    const errMsg = `Sorry! Invalid url! Cannot proxy! Tried to proxy: "${url}"` 
+    console.error(errMsg, error)
+    response.send(errMsg)
+    return
   })
 })
 
