@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Basic starter templates",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "firebase": "^8.9.1"
+  },
   "devDependencies": {
     "isomorphic-fetch": "^3.0.0",
     "jest": "^27.0.6"

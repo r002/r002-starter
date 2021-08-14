@@ -12,3 +12,8 @@ Starter project with template stubs.
 ```shell
 curl -d "grant_type=client_credentials&client_id={CLIENT-ID}&client_secret={CLIENT-SECRET}" "https://api.petfinder.com/v2/oauth2/token"
 ```
+
+## Firebase General commands
+```shell
+firebase deploy --only functions
+```
