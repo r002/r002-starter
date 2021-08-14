@@ -1,0 +1,39 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Tetris Test Harness2 (CORS Proxy - Succeeds)</title>
+  <!-- <link rel="icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+</head>
+
+<body>
+  <h1>Tetris Client Test Harness2 (CORS Proxy - Succeeds)</h1>
+  This one works because <strong>'Access-Control-Allow-Origin: *'</strong> is set in the <strong>response header</strong>! 🎉🥳
+  <br /><br />
+
+  <script type="module">
+    // const url = 'https://ctwc-cloud.appspot.com/v1/match/ctwc_2014_r5-01'
+    const url = 'https://us-central1-r002-starter.cloudfunctions.net/getCtwcMatch'
+    fetch(url).then((response) => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        throw new Error('Something went wrong')
+      }
+    })
+    .then((responseJson) => {
+      console.log(responseJson)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  </script>
+</body>
+</html>

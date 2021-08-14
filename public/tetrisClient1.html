@@ -1,0 +1,41 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Tetris Test Harness1 (Fails)</title>
+  <!-- <link rel="icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+</head>
+
+<body>
+  <h1>Tetris Client Test Harness1 (Fails)</h1>
+  Hello from Tetris client! This test shows what happens when you try to query a server that doesn't return CORS.
+  <br /><br />
+  If the server does not return <strong>'Access-Control-Allow-Origin: *'</strong> in its <strong>header</strong>, then you <strong><em>won't</em></strong> be able to call the JSON REST API from <strong>client-side browser code</strong>.
+  <br /><br />
+
+  <script type="module">
+    const url = 'https://ctwc-cloud.appspot.com/v1/match/ctwc_2014_r5-01'
+    // const url = 'https://us-central1-r002-starter.cloudfunctions.net/getCtwcMatch'
+    fetch(url).then((response) => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        throw new Error('Something went wrong')
+      }
+    })
+    .then((responseJson) => {
+      console.log(responseJson)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  </script>
+</body>
+</html>
