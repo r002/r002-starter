@@ -34,12 +34,27 @@ export class IssueCollection {
     this.arr.push(issue)
   }
 
-    /**
-   * Add an Issue to our collection
+  /**
+   * Return Array<Issue> of our collection
    * @param  {void}
    * @return {Array<Issue>}
    */
   getAll () {
     return this.arr
+  }
+
+  /**
+   * Return Array<Issue> of our collection filtered by issue author
+   * @param  {string} userLogin
+   * @return {Array<Issue>}
+   */
+  getAllByAuthor (userLogin) {
+    const rs = []
+    for (const issue of this.arr) {
+      if (issue.User.login === userLogin) {
+        rs.push(issue)
+      }
+    }
+    return rs
   }
 }
