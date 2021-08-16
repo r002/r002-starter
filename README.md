@@ -16,4 +16,11 @@ curl -d "grant_type=client_credentials&client_id={CLIENT-ID}&client_secret={CLIE
 ## Firebase General commands
 ```shell
 firebase deploy --only functions
+firebase emulators:start
+```
+
+## Jest
+```shell
+npm test -- -t "int"
+npm test -- -t "unit"
 ```
