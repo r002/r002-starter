@@ -1,0 +1,32 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Pet Client2 Test Harness</title>
+  <!-- <link rel="icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+</head>
+
+<body>
+  Hello from Pet client2! This tests fetching data from an auth provider using OAuth.
+  <script type="module">
+    import { petService } from './js/petService.js'
+    // Some OAuth2 provider will give you the logged-in user's token.
+    // We can then use that token to query the API for the desired data.
+    const token = "<User's token here>"
+    console.log('>> got the petfinder token:', token)
+
+    // Now we use the token to call the petfinder API
+    petService.getDogs(3, token).then(petCollection => {
+      console.log('>> petCollection:', petCollection)
+      // Render dogList data on the GUI somewhere
+    })
+  </script>
+</body>
+</html>

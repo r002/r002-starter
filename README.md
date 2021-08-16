@@ -23,4 +23,5 @@ firebase emulators:start
 ```shell
 npm test -- -t "int"
 npm test -- -t "unit"
+npm test -- --verbose -t "pet"
 ```
